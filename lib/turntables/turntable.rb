@@ -4,9 +4,7 @@ module Turntables
 # @author 
 class Turntable
   # Default constructor, that initializes some standard parameters
-  # @param repository_location is the location where the repository is. The
-  #   repository for now must be a directory containing the different sql files
-  def initialize(repository_location)
+  def initialize
     @revisions = Array.new
     @repository = Repository.new
   end
@@ -18,6 +16,7 @@ class Turntable
 
   # Create the tables by going through each revision
   def make!
+    @repository.make!
   end
 
   attr_accessor :repository
