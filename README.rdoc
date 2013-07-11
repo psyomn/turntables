@@ -6,7 +6,9 @@
 
 == Description
 
-TODO: Description
+This is not really ready, but putting it out there because I actually need it
+for something else I'm working on. If you can give a hand it will be very 
+appreciated (contact me).
 
 == Features
 
@@ -28,4 +30,8 @@ TODO: Description
 
 Copyright (c) 2013 psyomn
 
-See LICENSE.txt for details.
+== License
+
+License is MIT regardless what you may see or find elsewhere; I might have not
+changed it due to lack of time.
+
