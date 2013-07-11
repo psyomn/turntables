@@ -1,5 +1,8 @@
 require 'fileutils'
+
+# lib
 require 'turntables/transaction'
+require 'turntables/db_registry'
 
 module Turntables
 # @author Simon Symeonidis
@@ -9,9 +12,6 @@ class Repository
     @@seq  = "seq/"
     @@mono = "mono/"
     @transactions = Array.new
-
-    # Other init stuff here
-    init_sequential_transactions 
   end
 
   # @params location is the location of the sql repository for now (a directory
@@ -20,13 +20,23 @@ class Repository
     @relative_dir = location
     @sequential_dir = "#{@relative_dir}/#{@@seq}/*"
     @monolithic_dir = "#{@relative_dir}/#{@@mono}/*"
+
+    # Other init stuff here
+    init_sequential_transactions 
   end
 
   # Function to call in order to make the database. 
+  # 
   # TODO: Here, it should detect in what state the current database is in, and
   # go from there. In other words, whether it can skip sequential database
   # transactions by loading a monolithic one to exclude previous transactions.
+  #
+  # TODO: we need the version histories table, and
+  # logic on what to actually execute over here
   def make!
+    @transactions.each do |t| 
+      DbRegistry.instance.execute(t.data)
+    end
   end
 
   attr_accessor :sequential_dir

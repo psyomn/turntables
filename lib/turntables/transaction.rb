@@ -10,7 +10,7 @@ class Transaction
   #   for the version that it is supposed to upgrade to.
   def initialize(sql_file_contents,filename)
     # Select only the lines that begin with '--$'
-    @comment = sql_file_contents.lines.select{|e| e.match(/--\$/}.join
+    @comment = sql_file_contents.lines.select{|e| e.match(/--\$/)}.join
     @version = filename.to_i
     @data    = sql_file_contents
   end
