@@ -1,6 +1,7 @@
 module Turntables
-# @author
-#
+# @author Simon Symeonidis  
+# @date   Wed Jul 10 19:51:42 EDT 2013
+# This class takes care of a single transaction
 class Transaction
 
   # Initialize this object with the contents of the sql file
