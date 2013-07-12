@@ -14,7 +14,7 @@ class Repository
     @transactions = Array.new
   end
 
-  # @params location is the location of the sql repository for now (a directory
+  # @param location is the location of the sql repository for now (a directory
   #   for now).
   def register(location)
     @relative_dir = location
@@ -35,7 +35,7 @@ class Repository
   # logic on what to actually execute over here
   def make!
     @transactions.each do |t| 
-      DbRegistry.instance.execute(t.data)
+      DbRegistry.instance.execute_batch(t.data)
     end
   end
 

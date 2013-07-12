@@ -16,9 +16,24 @@ class DbRegistry
   end
 
   # Execute (any sort) of sql 
+  # @param sql is the multiple arguments of the function to execute. Usually
+  #   you should give it first the sql you want that is to be prepared. Then
+  #   you specify the variables to be set in the query, in the right order.
+  # @example Simple usage
+  #   sql = "INSERT INTO person (name, surname) values (?,?)"
+  #   DbRegistry.instance.execute(sql,"jon","doe")
   # @return sql data
   def execute(*sql)
     @handle.execute(*sql)
+  end
+
+  # For special queries that may contain multiple statements. For example a 
+  # query that contains first a 'create table' query, and then some inserts to
+  # poppulate that table. Ideally this should be used in order to create the
+  # tables in sequence.
+  # @param sql is the sql that contains multiple statements
+  def execute_batch(sql)
+    @handle.execute_batch(sql)
   end
 
   # Check if a table exists in the database
