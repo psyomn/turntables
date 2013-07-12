@@ -23,6 +23,9 @@ appreciated (contact me).
   # Ideal way of calling this library
   turntable = Turntable.new
   
+  # sql is a directory containing two subdirs: seq, mono
+  # seq contains sequential transactions
+  # mono contains monolithic transactions
   turntable.register('sql')
   turntable.make!
   
