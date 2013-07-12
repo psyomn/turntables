@@ -73,9 +73,32 @@ private
   end
 
   # Get the sequential transactional files
-  def sequential_files; Dir[@sequential_dir] end
+  def sequential_files
+    get_files_in_dir(@sequential_dir)
+  end
   # Get the monolithic transactional files
-  def monolithic_files; Dir[@monolithic_dir] end
+  def monolithic_files
+    get_files_in_dir(@monolithic_dir)
+  end
+
+  # Return the files that are in the given directory
+  # @param path is the path to look for files in the directory
+  # @return Array<String> of files sorted by stringnum_comparison predicate
+  def get_files_in_dir(path)
+    Dir[path].sort!{|e1,e2| stringnum_comparison(e1,e2)}
+  end
+
+  # Compare two strings with each other 
+  def stringnum_comparison(a,b)
+    extract_digits(a) <=> extract_digits(b)
+  end
+
+  # Extract the numbers from the string, and convert to Fixnum
+  # @param string is the string to extract the numbers from
+  # @return the number that was found in the string
+  def extract_digits(string)
+    string.gsub(/\D/,'').to_i
+  end
 
 end
 end
