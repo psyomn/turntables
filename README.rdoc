@@ -15,6 +15,20 @@ appreciated (contact me).
 == Examples
 
   require 'turntables'
+  
+  include Turntables
+  
+  puts "This is to test the library and proof of concept of turntables"
+  
+  # Ideal way of calling this library
+  turntable = Turntable.new
+  
+  turntable.register('sql')
+  turntable.make!
+  
+  # Note: There should not be any other calls to the library. We give it the 
+  # sql repository location, and then it's the responsibility of Turntables to
+  # decide whether to take action or not.
 
 == Requirements
 
