@@ -35,7 +35,7 @@ class DbRegistry
     puts sql
   end
 
-  # For special queries that may contain multiple statements. For example a 
+  # For special queries that may contain multiple statements. For example a
   # query that contains first a 'create table' query, and then some inserts to
   # poppulate that table. Ideally this should be used in order to create the
   # tables in sequence.
@@ -58,6 +58,7 @@ class DbRegistry
   end
 
 private 
+  # Other classes should not use the database handle directly
   attr :handle
 
 end

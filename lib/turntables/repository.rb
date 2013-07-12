@@ -3,12 +3,16 @@ require 'fileutils'
 # lib
 require 'turntables/transaction'
 require 'turntables/db_registry'
-require 'turntables/sql_modules/version_histories_sql'
+require 'turntables/sql_modules/version_history_sql'
 require 'turntables/constants/repository_constants'
 
 module Turntables
 # @author Simon Symeonidis
-# A turntables repository. 
+# A turntables repository. This class is responsible for handling the
+# versioning. This includes tasks such as checking database availability,
+# and pulling up the version history table and modifying where needed (for
+# example when completing a transaction, recording the date, the new version,
+# and comments about said transaction).
 class Repository
   include RepositoryConstants
 
@@ -36,7 +40,6 @@ class Repository
   # TODO: we need the version histories table, and
   # logic on what to actually execute over here
   def make!
-    version = latest_version
     @transactions.each do |transaction| 
       DbRegistry.instance.execute_batch(transaction.data)
     end
@@ -54,7 +57,11 @@ private
   # @return a Fixnum denoting the latest version retrieved from the database.
   #   A ':fresh' is returned if the database is entirely new.
   def latest_version
-    DbRegistry.instance.table_exists? VersionHistorySql::TableName
+    if DbRegistry.instance.table_exists? VersionHistorySql::TableName
+      return :asd
+    else # db does not exist
+      return :fresh
+    end
   end
 
   # Create the version history table
@@ -88,7 +95,7 @@ private
     Dir[path].sort!{|e1,e2| stringnum_comparison(e1,e2)}
   end
 
-  # Compare two strings with each other 
+  # Compare two strings with each other by extracting the digits
   def stringnum_comparison(a,b)
     extract_digits(a) <=> extract_digits(b)
   end

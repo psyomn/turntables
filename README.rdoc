@@ -2,7 +2,6 @@
 
 * {Homepage}[https://rubygems.org/gems/turntables]
 * {Documentation}[http://rubydoc.info/gems/turntables/frames]
-* {Email}[mailto:lethaljellybean at gmail.com]
 
 == Description
 
@@ -34,6 +33,11 @@ appreciated (contact me).
   # decide whether to take action or not.
 
 == Requirements
+
+* I've tested this with Ruby Versions = {2.0, 1.9.3}, though you should not
+  really have any issues in theory.
+
+* SQLite3 gem
 
 == Install
 
