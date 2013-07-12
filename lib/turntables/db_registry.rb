@@ -28,6 +28,11 @@ class DbRegistry
   # @return sql data
   def execute(*sql)
     @handle.execute(*sql)
+  rescue => ex
+    puts ex.message
+    puts ex.backtrace
+    puts "Offending sql: "
+    puts sql
   end
 
   # For special queries that may contain multiple statements. For example a 
@@ -37,13 +42,18 @@ class DbRegistry
   # @param sql is the sql that contains multiple statements
   def execute_batch(sql)
     @handle.execute_batch(sql)
+  rescue => ex
+    puts ex.message
+    puts ex.backtrace
+    puts "Offending sql: "
+    puts sql
   end
 
   # Check if a table exists in the database
   # @param name is the name of the table to check if exists
   # @return true if table exists, false if not
   def table_exists?(name)
-    val = @database_handle.execute(ExistsSql, "table", name) 
+    val = @handle.execute(ExistsSql, "table", name) 
     1 == val.flatten[0]
   end
 

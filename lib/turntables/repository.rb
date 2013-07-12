@@ -3,7 +3,7 @@ require 'fileutils'
 # lib
 require 'turntables/transaction'
 require 'turntables/db_registry'
-require 'turntables/sql_modules/version_history_sql'
+require 'turntables/sql_modules/version_histories_sql'
 require 'turntables/constants/repository_constants'
 
 module Turntables

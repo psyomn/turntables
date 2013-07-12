@@ -21,13 +21,6 @@ class Turntable
     @repository.make!
   end
 
-  # Alternate way of building the library.
-  # @param repository_root_path is the root path to all the sql.
-  def make!(repository_root_path)
-    register(repository_root_path)
-    make!
-  end
-
   attr_accessor :repository
 end
 end

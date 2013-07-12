@@ -4,7 +4,7 @@ module Turntables
 # separate concerns.
 module VersionHistorySql
   # Table name of this guy
-  TableName = :version_histories
+  TableName = "version_histories"
 
   # Table schema for the version history table.
   CreateSql = "CREATE TABLE #{TableName} ("\
