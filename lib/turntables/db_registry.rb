@@ -16,9 +16,23 @@ class DbRegistry
   end
 
   # Execute (any sort) of sql 
-  def execute(sql)
-    @handle.execute(sql)
+  # @return sql data
+  def execute(*sql)
+    @handle.execute(*sql)
   end
+
+  # Check if a table exists in the database
+  # @param name is the name of the table to check if exists
+  # @return true if table exists, false if not
+  def table_exists?(name)
+    val = @database_handle.execute(@@exists_sql, "table", name) 
+    1 == val.flatten[0]
+  end
+
+private 
+  attr :handle
+
+  @@exists_sql = "SELECT COUNT(type) from sqlite_master where type=? and name=?"
 end
 end
 
