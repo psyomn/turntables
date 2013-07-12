@@ -3,14 +3,16 @@ require 'fileutils'
 # lib
 require 'turntables/transaction'
 require 'turntables/db_registry'
+require 'turntables/sql_modules/version_history_sql'
+require 'turntables/constants/repository_constants'
 
 module Turntables
 # @author Simon Symeonidis
 # A turntables repository. 
 class Repository
+  include RepositoryConstants
+
   def initialize
-    @@seq  = "seq/"
-    @@mono = "mono/"
     @transactions = Array.new
   end
 
@@ -18,8 +20,8 @@ class Repository
   #   for now).
   def register(location)
     @relative_dir = location
-    @sequential_dir = "#{@relative_dir}/#{@@seq}/*"
-    @monolithic_dir = "#{@relative_dir}/#{@@mono}/*"
+    @sequential_dir = "#{@relative_dir}/#{SeqDir}/*"
+    @monolithic_dir = "#{@relative_dir}/#{MonoDir}/*"
 
     # Other init stuff here
     init_sequential_transactions 
@@ -34,8 +36,9 @@ class Repository
   # TODO: we need the version histories table, and
   # logic on what to actually execute over here
   def make!
-    @transactions.each do |t| 
-      DbRegistry.instance.execute_batch(t.data)
+    version = latest_version
+    @transactions.each do |transaction| 
+      DbRegistry.instance.execute_batch(transaction.data)
     end
   end
 
@@ -46,6 +49,18 @@ class Repository
   attr_accessor :sequential_transactions
 
 private 
+
+  # Get the latest database version from within the database
+  # @return a Fixnum denoting the latest version retrieved from the database.
+  #   A ':fresh' is returned if the database is entirely new.
+  def latest_version
+    DbRegistry.instance.table_exists? VersionHistorySql::TableName
+  end
+
+  # Create the version history table
+  def create_version_history_table
+
+  end
 
   # Find all the transactions that are to be processed sequentially
   def init_sequential_transactions

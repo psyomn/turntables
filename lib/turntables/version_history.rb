@@ -16,14 +16,6 @@ class VersionHistory
   def check
   end
 
-  # Table name of this guy
-  @@table_name = :version_histories
-
-  # Table schema for the version history table.
-  @@version_history_sql = "CREATE TABLE #{@table_name} ("\
-    "id INTEGER PRIMARY KEY AUTOINCREMENT, "\
-    "version_number BIGINT, "\
-    "comment TEXT)"
 end
 end
 
