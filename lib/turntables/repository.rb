@@ -2,6 +2,7 @@ require 'fileutils'
 
 # lib
 require 'turntables/transaction'
+require 'turntables/version_history'
 require 'turntables/db_registry'
 require 'turntables/sql_modules/version_history_sql'
 require 'turntables/constants/repository_constants'
@@ -40,6 +41,7 @@ class Repository
   # TODO: we need the version histories table, and
   # logic on what to actually execute over here
   def make!
+    select_transactions!
     @transactions.each do |transaction| 
       DbRegistry.instance.execute_batch(transaction.data)
     end
@@ -53,10 +55,10 @@ class Repository
 
 private 
 
-  # Get the latest database version from within the database
-  # @return a Fixnum denoting the latest version retrieved from the database.
-  #   A ':fresh' is returned if the database is entirely new.
-  def latest_version
+  # Depending on what has been done before, we need to choose the proper 
+  # transactions.
+  def select_transactions!
+    p VersionHistory.check!
   end
 
   # Find all the transactions that are to be processed sequentially

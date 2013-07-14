@@ -29,7 +29,7 @@ class VersionHistory
   # the version_histories table as well.
   def check!
     if DbRegistry.instance.table_exists? TableName
-      return :asd
+      return VersionHistory.find_last
     else # db does not exist
       return :fresh
     end
