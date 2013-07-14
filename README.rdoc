@@ -12,6 +12,74 @@ appreciated (contact me).
 == Features
 
 == Examples
+This is a simple tutorial on how to invoke the database manager.
+
+You need a directory structure like this:
+
+  .
+  |-- main.rb
+  `-- sql
+      |-- mono
+      `-- seq
+          |-- 1.sql
+          |-- 2.sql
+          |-- 3.sql
+          `-- 4.sql
+
+The sql files can be like this for example. The comments that are prepended
+with '--$' are inserted in the version history table within the table manager
+so that if someone needs to diagnose issues on the long run, there are the 
+comments there at least (along with a version, and date field).
+
+1.sql: 
+
+  --$ First version will be created with this. The comments to be added in the
+  --$ versions history table can be prepended with the '$' sign in order for you
+  --$ specify comments (if needed). It's here if you want it. 
+  -- This is an example file to show how the turntables gem could work maybe
+  -- with people. and stuff.
+  -- This SQL file adds the person, and work_descriptions entities to the 
+  -- database. 
+  CREATE TABLE persons (
+    id      integer primary key autoincrement,
+    name    varchar(50),
+    surname varchar(50), 
+    age     integer
+  );
+
+  CREATE TABLE work_descriptions (
+    id          integer primary key autoincrement,
+    description text
+  );
+  
+2.sql:
+
+  --$ Bump to version 2. This is starting to look good!
+  -- And this is for the second revision of the database.
+  
+  CREATE TABLE inventory (
+    id integer primary key autoincrement, 
+    description text
+  );
+
+3.sql: 
+
+  --$ We did a mistake. We forgot to add a field to the persons table. The extra
+  --$ field to be added is the DOB. 
+  ALTER TABLE persons ADD COLUMN dob BIGINT;
+
+4.sql: 
+
+  --$ This table is added because now the system requires accounts as well.
+  --$ Sat Jul 13 21:45:40 EDT 2013
+  -- Table to create accounts for people.
+  CREATE TABLE accounts (
+    balance  float,
+    owner_id integer,
+    FOREIGN KEY(owner_id) references persons(id)
+  );
+
+main.rb should be like this: 
 
   require 'turntables'
   
