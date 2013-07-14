@@ -100,6 +100,14 @@ main.rb should be like this:
   # sql repository location, and then it's the responsibility of Turntables to
   # decide whether to take action or not.
 
+Right now versions should be marked as the filename. Try to have intergers as
+versions, to avoid odd behaviour. So in this case versions {1,2,3} would
+respectively be in file form {1.sql, 2.sql, 3.sql}. 
+
+The monolithic transactions should be a combinations of all the versions, up to
+the one it denotes. In other words, version 4 would be the combination of all
+previous ones including itself {1.sql, 2.sql, 3.sql, 4.sql}.
+
 == Requirements
 
 * I've tested this with Ruby Versions = {2.0, 1.9.3}, though you should not
