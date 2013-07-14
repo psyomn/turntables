@@ -37,19 +37,25 @@ class VersionHistory
 
   # Get all the stored version histories
   def self.find_all
-    DbRegistry.instance.execute(SelectAll)
+    vhs = Array.new
+    DbRegistry.instance.execute(SelectAll).each do |row|
+      vhs.push VersionHistory.to_version_history(row)
+    end
+    vhs
   end
 
   # Find the last version history added by checking the max id
   # @return VersionHistory object or nil
   def self.find_last
     ret = DbRegistry.instance.execute(SelectLast)
+    VersionHistory.to_version_history(ret.first)
   end
 
   # Find a version history record by id
   # @return VersionHistory object or nil
   def self.find(id)
-    DbRegistry.instance.execute(SelectById, id)
+    ret = DbRegistry.instance.execute(SelectById, id)
+    VersionHistory.to_version_history(ret.first)
   end
 
   # Insert a row into the table for version histories
@@ -65,6 +71,16 @@ class VersionHistory
     DbRegistry.instance.execute(Create)
   end
 
+  # Make an array representing the persisted object, into an object in memory
+  # @param record an array containing the elements to construct a version history
+  # @return a VersionHistory object constructed from the records
+  def self.to_version_history(record)
+    vh = VersionHistory.new(record[1], record[2], record[3])
+    vh.id = record[0]
+    vh
+  end
+
+  attr_accessor :id
   attr_accessor :version
   attr_accessor :date
   attr_accessor :comment

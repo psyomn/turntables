@@ -64,7 +64,8 @@ private
       # Fresh db means, we create the version history table
       VersionHistory.pull_up!
     else 
-      VersionHistory.find_last
+      last_version = VersionHistory.find_last.version
+      @transactions.select!{|tr| tr.version > last_version}
     end
   end
 
