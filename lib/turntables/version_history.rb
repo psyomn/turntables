@@ -19,7 +19,7 @@ class VersionHistory
   # @param version is the version of the transaction that was performed
   # @param comment was any comments included in the sql file 
   # @param date is the optional date, set to the local time if unspecified
-  def intialize(version,comment,date=Time.now.to_i)
+  def initialize(version,comment,date=Time.now.to_i)
     @version = version
     @comment = comment
     @date    = date
@@ -27,7 +27,7 @@ class VersionHistory
 
   # Check if the required database exists. Check to see if the database has
   # the version_histories table as well.
-  def check!
+  def self.check
     if DbRegistry.instance.table_exists? TableName
       return VersionHistory.find_last
     else # db does not exist

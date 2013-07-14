@@ -43,6 +43,8 @@ class Repository
   def make!
     select_transactions!
     @transactions.each do |transaction| 
+      vh = VersionHistory.new(transaction.version, transaction.comment)
+      VersionHistory.insert(vh)
       DbRegistry.instance.execute_batch(transaction.data)
     end
   end
@@ -58,7 +60,12 @@ private
   # Depending on what has been done before, we need to choose the proper 
   # transactions.
   def select_transactions!
-    p VersionHistory.check!
+    if VersionHistory.check == :fresh
+      # Fresh db means, we create the version history table
+      VersionHistory.pull_up!
+    else 
+      VersionHistory.find_last
+    end
   end
 
   # Find all the transactions that are to be processed sequentially
