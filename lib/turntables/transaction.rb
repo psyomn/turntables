@@ -11,6 +11,7 @@ class Transaction
   def initialize(sql_file_contents,filename)
     # Select only the lines that begin with '--$'
     @comment = sql_file_contents.lines.select{|el| el.match(/--\$/)}.join
+    @comment.gsub!(/--\$/, '')
     @version = filename.to_i
     @data    = sql_file_contents
   end
