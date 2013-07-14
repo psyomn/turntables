@@ -16,6 +16,12 @@ module VersionHistorySql
   # Select last inserted transaction
   SelectLast = "SELECT * FROM #{TableName} "\
     " WHERE id=(SELECT MAX(id) FROM #{TableName});"
+
+  # Select a record by id
+  SelectById = "SELECT * FROM #{TableName} WHERE id=?"
+
+  # Select all the records
+  SelectAll  = "SELECT * FROM #{TableName}"
  
   # Sql to insert a version history into the table
   Insert     = "INSERT INTO #{TableName} (version,date,comment)"\

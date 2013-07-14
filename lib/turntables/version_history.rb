@@ -1,5 +1,6 @@
 require 'turntables/db_registry'
 require 'turntables/sql_modules/version_history_sql'
+
 module Turntables
 # @author Simon Symeonidis
 # This class is responsiblef for checking what version the current system is
@@ -26,18 +27,42 @@ class VersionHistory
 
   # Check if the required database exists. Check to see if the database has
   # the version_histories table as well.
-  def check
+  def check!
+    if DbRegistry.instance.table_exists? TableName
+      return :asd
+    else # db does not exist
+      return :fresh
+    end
   end
 
+  # Get all the stored version histories
   def self.find_all
+    DbRegistry.instance.execute(SelectAll)
   end
 
+  # Find the last version history added by checking the max id
+  # @return VersionHistory object or nil
+  def self.find_last
+    ret = DbRegistry.instance.execute(SelectLast)
+  end
+
+  # Find a version history record by id
+  # @return VersionHistory object or nil
   def self.find(id)
+    DbRegistry.instance.execute(SelectById, id)
   end
 
   # Insert a row into the table for version histories
-  def insert
-    DbRegistry.instance.execute(Insert, @version, @date, @comment)
+  # @return insert result
+  def self.insert(vhistory)
+    DbRegistry.instance.execute(Insert, vhistory.version, 
+                                vhistory.date, vhistory.comment)
+  end
+
+  # Create the table of this model
+  # @return nil
+  def self.pull_up!
+    DbRegistry.instance.execute(Create)
   end
 
   attr_accessor :version

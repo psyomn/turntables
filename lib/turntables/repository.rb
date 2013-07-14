@@ -57,19 +57,10 @@ private
   # @return a Fixnum denoting the latest version retrieved from the database.
   #   A ':fresh' is returned if the database is entirely new.
   def latest_version
-    if DbRegistry.instance.table_exists? VersionHistorySql::TableName
-      return :asd
-    else # db does not exist
-      return :fresh
-    end
-  end
-
-  # Create the version history table
-  def create_version_history_table
-
   end
 
   # Find all the transactions that are to be processed sequentially
+  # @return nil
   def init_sequential_transactions
     sequential_files.each do |path| 
       data        = File.open(path).read
