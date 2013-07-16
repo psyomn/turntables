@@ -65,16 +65,11 @@ private
     check = VersionHistory.check
     if check == :fresh
       # Fresh db means, we create the version history table
+      prepend_monolithic_transactions!
       VersionHistory.pull_up!
     else 
       last_version = VersionHistory.find_last.version
       @transactions.select!{|tr| tr.version > last_version}
-      # If this is a new database, we can use the monolithic transactions
-      if check == :fresh
-        prepend_monolithic_transactions!
-        puts "With monolithic"
-        p @transactions
-      end
     end
   end
 
