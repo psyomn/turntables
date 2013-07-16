@@ -19,6 +19,7 @@ class Repository
 
   def initialize
     @transactions = Array.new
+    @monolithics  = Array.new
   end
 
   # @param location is the location of the sql repository for now (a directory
@@ -28,8 +29,9 @@ class Repository
     @sequential_dir = "#{@relative_dir}/#{SeqDir}/*"
     @monolithic_dir = "#{@relative_dir}/#{MonoDir}/*"
 
-    # Other init stuff here
-    init_sequential_transactions 
+    # Initialize the transactions
+    init_sequential_transactions!
+    init_monolithic_transactions!
   end
 
   # Function to call in order to make the database. 
@@ -37,9 +39,6 @@ class Repository
   # TODO: Here, it should detect in what state the current database is in, and
   # go from there. In other words, whether it can skip sequential database
   # transactions by loading a monolithic one to exclude previous transactions.
-  #
-  # TODO: we need the version histories table, and
-  # logic on what to actually execute over here
   def make!
     select_transactions!
     @transactions.each do |transaction| 
@@ -53,25 +52,38 @@ class Repository
   attr_accessor :monolithic_dir
   attr_accessor :relative_dir
   # Array<Turntables::Transaction>
-  attr_accessor :sequential_transactions
+  attr_accessor :transactions
+  # Array<Turntables::Transaction>
+  attr_accessor :monolithics
 
 private 
 
   # Depending on what has been done before, we need to choose the proper 
   # transactions.
+  # TODO: This probably can be done cleaner
   def select_transactions!
-    if VersionHistory.check == :fresh
+    check = VersionHistory.check
+    if check == :fresh
       # Fresh db means, we create the version history table
       VersionHistory.pull_up!
     else 
       last_version = VersionHistory.find_last.version
       @transactions.select!{|tr| tr.version > last_version}
+      # If this is a new database, we can use the monolithic transactions
+      if check == :fresh
+        prepend_monolithic_transactions!
+      end
     end
+  end
+
+  # This checks to see if any monolithic transactions exist, which can
+  # eliminate previous sequential transactions.
+  def prepend_monolithic_transactions!
   end
 
   # Find all the transactions that are to be processed sequentially
   # @return nil
-  def init_sequential_transactions
+  def init_sequential_transactions!
     sequential_files.each do |path| 
       data        = File.open(path).read
       filename    = path.split(/\//).last
@@ -80,10 +92,22 @@ private
     nil
   end
 
+  # Find all the transactions that are to be processed only once
+  # @return nil
+  def init_monolithic_transactions!
+    monolithic_files.each do |path| 
+      data        = File.open(path).read
+      filename    = path.split(/\//).last
+      @monolithics.push Transaction.new(data,filename)
+    end
+    nil
+  end
+
   # Get the sequential transactional files
   def sequential_files
     get_files_in_dir(@sequential_dir)
   end
+
   # Get the monolithic transactional files
   def monolithic_files
     get_files_in_dir(@monolithic_dir)
