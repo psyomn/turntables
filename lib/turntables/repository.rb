@@ -72,6 +72,8 @@ private
       # If this is a new database, we can use the monolithic transactions
       if check == :fresh
         prepend_monolithic_transactions!
+        puts "With monolithic"
+        p @transactions
       end
     end
   end
@@ -79,6 +81,9 @@ private
   # This checks to see if any monolithic transactions exist, which can
   # eliminate previous sequential transactions.
   def prepend_monolithic_transactions!
+    max = @monolithics.max_by &:version
+    @transactions.select!{|tr| tr.version > max.version}
+    @transactions = @transactions.unshift(max)
   end
 
   # Find all the transactions that are to be processed sequentially
