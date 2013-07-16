@@ -1,14 +1,12 @@
 #!/usr/bin/env ruby
+require 'turntables'
+include Turntables
 
-root = File.expand_path(File.join(File.dirname(__FILE__),'..'))
-if File.directory?(File.join(root,'.git'))
-  Dir.chdir(root) do
-    begin
-      require 'bundler/setup'
-    rescue LoadError => e
-      warn e.message
-      warn "Run `gem install bundler` to install Bundler"
-      exit -1
-    end
-  end
+if ARGV.count > 0
+  turntable = Turntable.new
+  turntable.register(ARGV[0])
+  turntable.make!
+else
+  puts "Usage: "
+  puts "  turtables <repo-dir>"
 end
