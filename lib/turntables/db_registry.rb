@@ -16,6 +16,7 @@ class DbRegistry
   # might require to name their database with their own specific name.
   def initialize(dbname="default.db")
     @handle = SQLite3::Database.new(dbname)
+    @name   = dbname
   end
 
   # Execute (any sort) of sql 
@@ -57,9 +58,25 @@ class DbRegistry
     1 == val.flatten[0]
   end
 
+  # Close the current database. 
+  # @warn This is mainly here for the rspec testing, and should not be used 
+  #   unless you really know what you're doing.
+  def close!
+    @handle.close unless @handle.closed?
+  end
+
+  # Open the database, with the name given previously
+  # @warn This is mainly here for the rspec testing, and should not be used 
+  #   unless you really know what you're doing.
+  def open!
+    @handle = SQLite3::Database.new(@name) if @handle.closed?
+  end
+
 private 
   # Other classes should not use the database handle directly
   attr :handle
+  # The database name
+  attr :name
 
 end
 end

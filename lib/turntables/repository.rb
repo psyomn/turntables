@@ -84,21 +84,22 @@ private
   # Find all the transactions that are to be processed sequentially
   # @return nil
   def init_sequential_transactions!
-    sequential_files.each do |path| 
-      data        = File.open(path).read
-      filename    = path.split(/\//).last
-      @transactions.push Transaction.new(data,filename)
-    end
-    nil
+    init_generic_transactions(sequential_files, @transactions)
   end
 
   # Find all the transactions that are to be processed only once
   # @return nil
   def init_monolithic_transactions!
-    monolithic_files.each do |path| 
+    init_generic_transactions(monolithic_files, @monolithics)
+  end
+
+  # this is a generic transaction reader
+  # return nil
+  def init_generic_transactions(file_list, transaction_holder)
+    file_list.each do |path|
       data        = File.open(path).read
       filename    = path.split(/\//).last
-      @monolithics.push Transaction.new(data,filename)
+      transaction_holder.push Transaction.new(data,filename)
     end
     nil
   end
