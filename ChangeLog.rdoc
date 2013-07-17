@@ -1,5 +1,10 @@
-=== 0.1.0 / 2013-07-03
+=== 1.0.0 / 2013-07-03
 
 * Initial release:
+  * Can create db versioning with sequential transactions
+  * Can create db versioning with monolithic transactions
+  * Can detect malformed dirs / repos of said sql
 
+* TODO
+  * Want to have a way to set the database name
 
