@@ -6,6 +6,12 @@ require 'turntables/db_registry'
 # specified).
 describe Turntable do
 
+  def delete_db
+    if File.exists? "default.db"
+      File.delete("default.db")
+    end
+  end
+
   before(:each) do
     @turntable = Turntable.new
     @relpath   = File.expand_path(File.dirname(__FILE__))
@@ -20,10 +26,12 @@ describe Turntable do
 
   after(:each) do 
     DbRegistry.instance.close!
-    if File.exist? "default.db"
-      File.delete("default.db")
-    end
+    delete_db
     DbRegistry.instance.open!
+  end
+
+  after(:all) do
+    delete_db
   end
 
   it "should raise no errors on a pure sequential repo" do

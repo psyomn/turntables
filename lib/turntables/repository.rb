@@ -77,8 +77,10 @@ private
   # eliminate previous sequential transactions.
   def prepend_monolithic_transactions!
     max = @monolithics.max_by &:version
-    @transactions.select!{|tr| tr.version > max.version}
-    @transactions = @transactions.unshift(max)
+    unless max.nil?
+      @transactions.select!{|tr| tr.version > max.version}
+      @transactions = @transactions.unshift(max)
+    end
   end
 
   # Find all the transactions that are to be processed sequentially
