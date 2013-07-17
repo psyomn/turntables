@@ -1,5 +1,7 @@
 require 'turntables/db_registry'
 require 'turntables/repository'
+require 'turntables/turntable_exception'
+
 module Turntables
 # @author Simon Symeonidis
 # The facade controller to the rest of this library.
@@ -18,7 +20,11 @@ class Turntable
 
   # Create the tables by going through each revision
   def make!
-    @repository.make!
+    if @repository.malformed?
+      raise TurntableException, "The directory structure is malformed."
+    else
+      @repository.make!
+    end
   end
 
   attr_accessor :repository

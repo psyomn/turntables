@@ -26,8 +26,8 @@ class Repository
   #   for now).
   def register(location)
     @relative_dir = location
-    @sequential_dir = "#{@relative_dir}/#{SeqDir}/*"
-    @monolithic_dir = "#{@relative_dir}/#{MonoDir}/*"
+    @sequential_dir = "#{@relative_dir}/#{SeqDir}/"
+    @monolithic_dir = "#{@relative_dir}/#{MonoDir}/"
 
     # Initialize the transactions
     init_sequential_transactions!
@@ -46,6 +46,14 @@ class Repository
       VersionHistory.insert(vh)
       DbRegistry.instance.execute_batch(transaction.data)
     end
+  end
+
+  # Check to see if the directory structure is malformed.
+  # @return true if the directory structure is malformed
+  def malformed?
+    abs_seq = File.expand_path(@sequential_dir)
+    abs_mon = File.expand_path(@monolithic_dir)
+    !(File.exists?(abs_seq) && File.exists?(abs_mon))
   end
 
   attr_accessor :sequential_dir
@@ -120,7 +128,7 @@ private
   # @param path is the path to look for files in the directory
   # @return Array<String> of files sorted by stringnum_comparison predicate
   def get_files_in_dir(path)
-    Dir[path].sort!{|e1,e2| stringnum_comparison(e1,e2)}
+    Dir["#{path}*"].sort!{|e1,e2| stringnum_comparison(e1,e2)}
   end
 
   # Compare two strings with each other by extracting the digits
