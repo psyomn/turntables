@@ -1,7 +1,6 @@
 require 'turntables/version_history'
 
 describe VersionHistory do 
-
   context "<<AR>> pattern specification" do
     it "should respond to class method check" do
       VersionHistory.should respond_to(:check)
@@ -29,6 +28,28 @@ describe VersionHistory do
     
     it "should respond to class method to_version_history" do
       VersionHistory.should respond_to(:to_version_history)
+    end
+  end
+
+  context "Attributes" do
+    before(:each) do
+      @version_history = VersionHistory.new(1,"asdf")
+    end
+
+    it "should have an id" do 
+      @version_history.should respond_to(:id)
+    end
+
+    it "should have a version" do
+      @version_history.should respond_to(:version)
+    end
+
+    it "should have a date" do 
+      @version_history.should respond_to(:date)
+    end
+
+    it "should have a comment" do
+      @version_history.should respond_to(:comment)
     end
   end
 end
