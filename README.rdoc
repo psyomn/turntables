@@ -101,6 +101,12 @@ main.rb should be like this:
   # sql repository location, and then it's the responsibility of Turntables to
   # decide whether to take action or not.
 
+If you require that the database be made at a specified location, you should use
+the method `make_at!(location)`. To do this, just do what the above code does
+until `make!`. Then you need to call `make_at!` in the following way:
+
+  turntable.make_at!("path/to/database.db")
+
 Right now versions should be marked as the filename. Try to have intergers as
 versions, to avoid odd behaviour. So in this case versions {1,2,3} would
 respectively be in file form {1.sql, 2.sql, 3.sql}. 

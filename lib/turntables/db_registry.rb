@@ -73,7 +73,7 @@ class DbRegistry
   end
 
   # The database name
-  attr :name
+  attr_accessor :name
 
 private 
   # Other classes should not use the database handle directly
