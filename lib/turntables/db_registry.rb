@@ -72,12 +72,12 @@ class DbRegistry
     @handle = SQLite3::Database.new(@name) if @handle.closed?
   end
 
-private 
-  # Other classes should not use the database handle directly
-  attr :handle
   # The database name
   attr :name
 
+private 
+  # Other classes should not use the database handle directly
+  attr :handle
 end
 end
 
