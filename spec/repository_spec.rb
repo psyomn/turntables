@@ -32,4 +32,8 @@ describe Repository do
     @repo.should respond_to(:relative_dir)
   end
 
+  it "should have the transactions in a sorted order (smallest to biggest)" do
+    @repo.register("data/sql-just-sequential")
+  end
+
 end
