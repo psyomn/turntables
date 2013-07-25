@@ -18,6 +18,13 @@ class Turntable
     @repository.register(repository_root_path)
   end
 
+  # Make the repository at a specific location instead of default.
+  def make_at!(location)
+    DbRegistry.instance.close!
+    DbRegistry.instance.instance.name = location
+    DbRegistry.instance.open!
+  end 
+
   # Create the tables by going through each revision
   def make!
     if @repository.malformed?

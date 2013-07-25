@@ -59,5 +59,11 @@ describe Turntable do
     expect{@turntable.make!}.to raise_error
   end
 
+  it "should create the database at a specified location" do
+    @turntable.register("#{@datapath}/sql-seq-and-mono")
+    @turntable.make_at!("#{@datapath}/location/herp.db")
+    (File.exists? "#{@datapath}/location/herp.db").should_be true
+  end
+
 end
 
