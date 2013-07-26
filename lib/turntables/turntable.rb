@@ -23,6 +23,7 @@ class Turntable
     DbRegistry.instance.close!
     DbRegistry.instance.name = location
     DbRegistry.instance.open!
+    make!
   end 
 
   # Create the tables by going through each revision
