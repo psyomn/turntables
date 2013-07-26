@@ -6,9 +6,15 @@
 
 == Description
 
-This is not really ready, but putting it out there because I actually need it
-for something else I'm working on. If you can give a hand it will be very 
-appreciated (contact me).
+You can use this in order to manage your (simple) sqlite3 databases. I wanted
+something light and simple in order to help on some development I'm doing on 
+my own. I found myself repeating a pattern most of this time, and decided to
+bring an end to it by writing this gem. 
+
+The concept is inspired by the Rails migrations, and something else I've seen
+in some Bukkit code. Ultimately the functionality of this library can be 
+further abstracted, and made more modular in the future, as well as translated
+in other languages. But alas our mortal time is limited. 
 
 == Features
 
