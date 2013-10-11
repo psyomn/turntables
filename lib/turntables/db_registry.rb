@@ -30,10 +30,10 @@ class DbRegistry
   def execute(*sql)
     @handle.execute(*sql)
   rescue => ex
-    puts ex.message
-    puts ex.backtrace
-    puts "Offending sql: "
-    puts sql
+    $stderr.puts ex.message
+    $stderr.puts ex.backtrace
+    $stderr.puts "Offending sql: "
+    $stderr.puts sql
   end
 
   # For special queries that may contain multiple statements. For example a
@@ -44,10 +44,10 @@ class DbRegistry
   def execute_batch(sql)
     @handle.execute_batch(sql)
   rescue => ex
-    puts ex.message
-    puts ex.backtrace
-    puts "Offending sql: "
-    puts sql
+    $stderr.puts ex.message
+    $stderr.puts ex.backtrace
+    $stderr.puts "Offending sql: "
+    $stderr.puts sql
   end
 
   # Check if a table exists in the database
