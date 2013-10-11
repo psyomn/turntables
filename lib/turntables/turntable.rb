@@ -29,7 +29,8 @@ class Turntable
   # Create the tables by going through each revision
   def make!
     if @repository.malformed?
-      raise TurntableException, "The directory structure is malformed."
+      raise TurntableException, 
+        "The directory structure at #{@repository.relative_dir} is malformed."
     else
       @repository.make!
     end

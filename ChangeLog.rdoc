@@ -1,3 +1,9 @@
+=== 1.0.1 / Oct 11 2013
+
+* Small fixes
+  * Output to stderr on errors
+  * Output the location of the malformed dir, if there are problems
+
 === 1.0.0 / 2013-07-03
 
 * Initial release:
