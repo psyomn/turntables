@@ -74,7 +74,7 @@ private
 
   def get_handle
     @handle = SQLite3::Database.new(@name) if @handle.nil?
-  end
+  @handle end
 
   def print_exception(ex)
     $stderr.puts ex.message
