@@ -121,6 +121,10 @@ The monolithic transactions should be a combinations of all the versions, up to
 the one it denotes. In other words, version 4 would be the combination of all
 previous ones including itself {1.sql, 2.sql, 3.sql, 4.sql}.
 
+If you require it, you can also query the version histories in your
+application.  To do so, you just need to use the VersionHistory active record,
+in the turntables gem.
+
 == Requirements
 
 * I've tested this with Ruby Versions = {2.0, 1.9.3}, though you should not

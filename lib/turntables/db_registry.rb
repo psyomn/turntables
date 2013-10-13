@@ -15,8 +15,7 @@ class DbRegistry
   # TODO we need to be able to set this somehow differently - applications
   # might require to name their database with their own specific name.
   def initialize(dbname="default.db")
-    @handle = SQLite3::Database.new(dbname)
-    @name   = dbname
+    @name = dbname
   end
 
   # Execute (any sort) of sql 
@@ -28,12 +27,9 @@ class DbRegistry
   #   DbRegistry.instance.execute(sql,"jon","doe")
   # @return sql data
   def execute(*sql)
-    @handle.execute(*sql)
+    get_handle.execute(*sql)
   rescue => ex
-    $stderr.puts ex.message
-    $stderr.puts ex.backtrace
-    $stderr.puts "Offending sql: "
-    $stderr.puts sql
+    print_exception ex
   end
 
   # For special queries that may contain multiple statements. For example a
@@ -42,19 +38,16 @@ class DbRegistry
   # tables in sequence.
   # @param sql is the sql that contains multiple statements
   def execute_batch(sql)
-    @handle.execute_batch(sql)
+    get_handle.execute_batch(sql)
   rescue => ex
-    $stderr.puts ex.message
-    $stderr.puts ex.backtrace
-    $stderr.puts "Offending sql: "
-    $stderr.puts sql
+    print_exception ex
   end
 
   # Check if a table exists in the database
   # @param name is the name of the table to check if exists
   # @return true if table exists, false if not
   def table_exists?(name)
-    val = @handle.execute(ExistsSql, "table", name) 
+    val = get_handle.execute(ExistsSql, "table", name) 
     1 == val.flatten[0]
   end
 
@@ -62,14 +55,14 @@ class DbRegistry
   # @warn This is mainly here for the rspec testing, and should not be used 
   #   unless you really know what you're doing.
   def close!
-    @handle.close unless @handle.closed?
+    get_handle.close unless get_handle.closed?
   end
 
   # Open the database, with the name given previously
   # @warn This is mainly here for the rspec testing, and should not be used 
   #   unless you really know what you're doing.
   def open!
-    @handle = SQLite3::Database.new(@name) if @handle.closed?
+    @handle = SQLite3::Database.new(@name) if get_handle.closed?
   end
 
   # The database name
@@ -78,6 +71,18 @@ class DbRegistry
 private 
   # Other classes should not use the database handle directly
   attr :handle
+
+  def get_handle
+    @handle = SQLite3::Database.new(@name) if @handle.nil?
+  end
+
+  def print_exception(ex)
+    $stderr.puts ex.message
+    $stderr.puts ex.backtrace
+    $stderr.puts "Offending sql: "
+    $stderr.puts sql
+  end
+
 end
 end
 
