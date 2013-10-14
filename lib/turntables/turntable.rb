@@ -20,8 +20,8 @@ class Turntable
 
   # Make the repository at a specific location instead of default.
   def make_at!(location)
-    DbRegistry.instance.close!
     DbRegistry.instance.name = location
+    DbRegistry.instance.close!
     DbRegistry.instance.open!
     make!
   end 
