@@ -16,15 +16,15 @@ describe Turntable do
     @turntable = Turntable.new
     @relpath   = File.expand_path(File.dirname(__FILE__))
     @datapath  = "#{@relpath}/data"
-   
-    # datapath/ and 
+
+    # datapath/ and
     #   malformed-dir
     #   sql-just-monolithic
     #   sql-just-sequential
     #   sql-seq-and-mono
   end
 
-  after(:each) do 
+  after(:each) do
     DbRegistry.instance.close!
     delete_db
     DbRegistry.instance.open!
@@ -63,9 +63,8 @@ describe Turntable do
     db_location = "#{@datapath}/locations/herp.db"
     @turntable.register("#{@datapath}/sql-seq-and-mono")
     @turntable.make_at!(db_location)
-    (File.exists? db_location).should be_true
+    (File.exists? db_location).should be_truthy
     File.delete(db_location)
   end
 
 end
-
