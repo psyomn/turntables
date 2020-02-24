@@ -1,4 +1,4 @@
-= turntables {<img src="https://codeclimate.com/github/psyomn/turntables.png" />}[https://codeclimate.com/github/psyomn/turntables] {<img src="https://travis-ci.org/psyomn/turntables.png?branch=master" alt="Build Status" />}[https://travis-ci.org/psyomn/turntables]
+= turntables {<img src="https://codeclimate.com/github/psyomn/turntables.png" />}[https://codeclimate.com/github/psyomn/turntables] 
 
 * {Source}[http://github.com/psyomn/turntables]
 * {Homepage}[https://rubygems.org/gems/turntables]
