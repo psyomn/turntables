@@ -18,8 +18,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_development_dependency 'bundler', '~> 2.1'
-  gem.add_development_dependency 'rake', '~> 0.8'
-  gem.add_development_dependency 'rspec', '~> 2.4'
+  gem.add_development_dependency 'rake', '>= 12.0'
+  gem.add_development_dependency 'rspec', '~> 3.9'
 
   gem.add_runtime_dependency 'sqlite3'
 end
