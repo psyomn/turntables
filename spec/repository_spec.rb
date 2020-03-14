@@ -33,7 +33,9 @@ describe Repository do
   end
 
   it "should have the transactions in a sorted order (smallest to biggest)" do
-    @repo.register("data/sql-just-sequential")
-    # TODO: rediscovered that incomplete
+    @repo.register("./spec/data/sql-just-sequential")
+    versions = @repo.transactions.map { |el| el.version }
+    versions_dup = versions.dup
+    expect(versions.sort == versions_dup).to be_truthy
   end
 end
