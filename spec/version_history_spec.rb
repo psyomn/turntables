@@ -1,33 +1,33 @@
 require 'turntables/version_history'
 
-describe VersionHistory do 
+describe VersionHistory do
   context "<<AR>> pattern specification" do
     it "should respond to class method check" do
-      VersionHistory.should respond_to(:check)
+      expect(VersionHistory).to respond_to(:check)
     end
 
     it "should respond to class method find_all" do
-      VersionHistory.should respond_to(:find_all)
+      expect(VersionHistory).to respond_to(:find_all)
     end
 
     it "should respond to class method find_last" do
-      VersionHistory.should respond_to(:find_last)
+      expect(VersionHistory).to respond_to(:find_last)
     end
 
     it "should respond to class method find" do
-      VersionHistory.should respond_to(:find)
+      expect(VersionHistory).to respond_to(:find)
     end
 
     it "should respond to class method insert" do
-      VersionHistory.should respond_to(:insert)
+      expect(VersionHistory).to respond_to(:insert)
     end
 
     it "should respond to class method pull_up!" do
-      VersionHistory.should respond_to(:pull_up!)
+      expect(VersionHistory).to respond_to(:pull_up!)
     end
-    
+
     it "should respond to class method to_version_history" do
-      VersionHistory.should respond_to(:to_version_history)
+      expect(VersionHistory).to respond_to(:to_version_history)
     end
   end
 
@@ -36,20 +36,20 @@ describe VersionHistory do
       @version_history = VersionHistory.new(1,"asdf")
     end
 
-    it "should have an id" do 
-      @version_history.should respond_to(:id)
+    it "should have an id" do
+      expect(@version_history).to respond_to(:id)
     end
 
     it "should have a version" do
-      @version_history.should respond_to(:version)
+      expect(@version_history).to respond_to(:version)
     end
 
-    it "should have a date" do 
-      @version_history.should respond_to(:date)
+    it "should have a date" do
+      expect(@version_history).to respond_to(:date)
     end
 
     it "should have a comment" do
-      @version_history.should respond_to(:comment)
+      expect(@version_history).to respond_to(:comment)
     end
   end
 end

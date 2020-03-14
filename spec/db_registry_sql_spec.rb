@@ -4,6 +4,6 @@ include Turntables
 
 describe DbRegistrySql do
   it "Should have a constant ExistsSql" do
-    subject.const_get('ExistsSql').should_not be_empty
+    expect(subject.const_get('ExistsSql')).to_not be_empty
   end
 end

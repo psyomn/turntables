@@ -51,19 +51,19 @@ describe Turntable do
 
   it "should raise an error on a malformed dir" do
     @turntable.register("#{@datapath}/malformed-dir")
-    expect{@turntable.make!}.to raise_error
+    expect{@turntable.make!}.to raise_error(TurntableException)
   end
 
   it "should raise an error on non existant path" do
     @turntable.register("WARGABLLGABHLGABL")
-    expect{@turntable.make!}.to raise_error
+    expect{@turntable.make!}.to raise_error(TurntableException)
   end
 
   it "should create the database at a *specified* location" do
     db_location = "#{@datapath}/locations/herp.db"
     @turntable.register("#{@datapath}/sql-seq-and-mono")
     @turntable.make_at!(db_location)
-    (File.exists? db_location).should be_truthy
+    expect(File.exists? db_location).to be_truthy
     File.delete(db_location)
   end
 
