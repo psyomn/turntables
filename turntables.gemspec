@@ -5,8 +5,8 @@ require File.expand_path('lib/turntables/version', __dir__)
 Gem::Specification.new do |gem|
   gem.name          = 'turntables'
   gem.version       = Turntables::VERSION
-  gem.summary       = 'A dumb experimental, lightweight db version control system for SQLite3'
-  gem.description   = 'A dumb experimental, lightweight db version control system for SQLite3'
+  gem.summary       = 'A dumb db migration system for SQLite3'
+  gem.description   = 'A dumb db migration system for SQLite3'
   gem.license       = 'MIT'
   gem.authors       = ['psyomn']
   gem.email         = 'lethaljellybean@gmail.com'
