@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require 'turntables/version'
 
 include Turntables
 
-RSpec.configure do |config|
-  config.raise_errors_for_deprecations!
-end
+RSpec.configure(&:raise_errors_for_deprecations!)
