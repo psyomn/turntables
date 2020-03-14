@@ -2,9 +2,7 @@
 
 require 'turntables/repository'
 
-include Turntables
-
-describe Repository do
+describe Turntables::Repository do
   before :each do
     @repo = Repository.new
   end

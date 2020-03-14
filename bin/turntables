@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'turntables'
-include Turntables
+if ARGV.count.positive?
+  require 'turntables'
 
-if ARGV.count > 0
-  turntable = Turntable.new
+  turntable = Turntables::Turntable.new
   turntable.register(ARGV[0])
   turntable.make!
 else

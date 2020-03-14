@@ -2,7 +2,7 @@
 
 require 'turntables/turntable_exception'
 
-describe TurntableException do
+describe Turntables::TurntableException do
   before(:each) do
     @te = TurntableException.new
   end

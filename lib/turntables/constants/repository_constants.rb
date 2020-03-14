@@ -2,7 +2,7 @@
 
 module Turntables
   module RepositoryConstants
-    SeqDir  = 'seq/'
-    MonoDir = 'mono/'
+    SEQ_DIR = 'seq/'
+    MONO_DIR = 'mono/'
   end
 end

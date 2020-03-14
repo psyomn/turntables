@@ -28,8 +28,8 @@ module Turntables
     #   for now).
     def register(location)
       @relative_dir = location
-      @sequential_dir = "#{@relative_dir}/#{SeqDir}/"
-      @monolithic_dir = "#{@relative_dir}/#{MonoDir}/"
+      @sequential_dir = "#{@relative_dir}/#{SEQ_DIR}/"
+      @monolithic_dir = "#{@relative_dir}/#{MONO_DIR}/"
 
       # Initialize the transactions
       init_sequential_transactions!
@@ -86,11 +86,11 @@ module Turntables
     # This checks to see if any monolithic transactions exist, which can
     # eliminate previous sequential transactions.
     def prepend_monolithic_transactions!
-      max = @monolithics.max_by &:version
-      unless max.nil?
-        @transactions.select! { |tr| tr.version > max.version }
-        @transactions = @transactions.unshift(max)
-      end
+      max = @monolithics.max_by(&:version)
+      return if max.nil?
+
+      @transactions.select! { |tr| tr.version > max.version }
+      @transactions = @transactions.unshift(max)
     end
 
     # Find all the transactions that are to be processed sequentially
@@ -134,8 +134,8 @@ module Turntables
     end
 
     # Compare two strings with each other by extracting the digits
-    def stringnum_comparison(a, b)
-      extract_digits(a) <=> extract_digits(b)
+    def stringnum_comparison(str1, str2)
+      extract_digits(str1) <=> extract_digits(str2)
     end
 
     # Extract the numbers from the string, and convert to Fixnum

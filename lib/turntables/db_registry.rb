@@ -29,7 +29,7 @@ module Turntables
     #   DbRegistry.instance.execute(sql,"jon","doe")
     # @return sql data
     def execute(*sql)
-      get_handle.execute(*sql)
+      handle.execute(*sql)
     rescue StandardError => e
       print_exception e
     end
@@ -40,7 +40,7 @@ module Turntables
     # tables in sequence.
     # @param sql is the sql that contains multiple statements
     def execute_batch(sql)
-      get_handle.execute_batch(sql)
+      execute_batch(sql)
     rescue StandardError => e
       print_exception e
     end
@@ -49,7 +49,7 @@ module Turntables
     # @param name is the name of the table to check if exists
     # @return true if table exists, false if not
     def table_exists?(name)
-      val = get_handle.execute(ExistsSql, 'table', name)
+      val = handle.execute(EXISTS_SQL, 'table', name)
       val.flatten[0] == 1
     end
 
@@ -57,14 +57,14 @@ module Turntables
     # @warn This is mainly here for the rspec testing, and should not be used
     #   unless you really know what you're doing.
     def close!
-      get_handle.close unless get_handle.closed?
+      @db_handle.close unless handle.closed?
     end
 
     # Open the database, with the name given previously
     # @warn This is mainly here for the rspec testing, and should not be used
     #   unless you really know what you're doing.
     def open!
-      @handle = SQLite3::Database.new(@name) if get_handle.closed?
+      @db_handle = SQLite3::Database.new(@name) if handle.closed?
     end
 
     # The database name
@@ -73,16 +73,16 @@ module Turntables
     private
 
     # Other classes should not use the database handle directly
-    attr :handle
+    attr :db_handle
 
-    def get_handle
-      @handle = SQLite3::Database.new(@name) if @handle.nil?
-      @handle
-  end
+    def handle
+      @db_handle = SQLite3::Database.new(@name) if @handle.nil?
+      @db_handle
+    end
 
-    def print_exception(ex)
-      warn ex.message
-      warn ex.backtrace
+    def print_exception(exception)
+      warn exception.message
+      warn exception.backtrace
       warn 'Offending sql: '
       warn sql
     end

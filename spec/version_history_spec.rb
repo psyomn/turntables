@@ -2,40 +2,40 @@
 
 require 'turntables/version_history'
 
-describe VersionHistory do
+describe Turntables::VersionHistory do
   context '<<AR>> pattern specification' do
     it 'should respond to class method check' do
-      expect(VersionHistory).to respond_to(:check)
+      expect(Turntables::VersionHistory).to respond_to(:check)
     end
 
     it 'should respond to class method find_all' do
-      expect(VersionHistory).to respond_to(:find_all)
+      expect(Turntables::VersionHistory).to respond_to(:find_all)
     end
 
     it 'should respond to class method find_last' do
-      expect(VersionHistory).to respond_to(:find_last)
+      expect(Turntables::VersionHistory).to respond_to(:find_last)
     end
 
     it 'should respond to class method find' do
-      expect(VersionHistory).to respond_to(:find)
+      expect(Turntables::VersionHistory).to respond_to(:find)
     end
 
     it 'should respond to class method insert' do
-      expect(VersionHistory).to respond_to(:insert)
+      expect(Turntables::VersionHistory).to respond_to(:insert)
     end
 
     it 'should respond to class method pull_up!' do
-      expect(VersionHistory).to respond_to(:pull_up!)
+      expect(Turntables::VersionHistory).to respond_to(:pull_up!)
     end
 
     it 'should respond to class method to_version_history' do
-      expect(VersionHistory).to respond_to(:to_version_history)
+      expect(Turntables::VersionHistory).to respond_to(:to_version_history)
     end
   end
 
   context 'Attributes' do
     before(:each) do
-      @version_history = VersionHistory.new(1, 'asdf')
+      @version_history = Turntables::VersionHistory.new(1, 'asdf')
     end
 
     it 'should have an id' do

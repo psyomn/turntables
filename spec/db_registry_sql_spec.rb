@@ -2,10 +2,8 @@
 
 require 'turntables/sql_modules/db_registry_sql'
 
-include Turntables
-
-describe DbRegistrySql do
+describe Turntables::DbRegistrySql do
   it 'Should have a constant ExistsSql' do
-    expect(subject.const_get('ExistsSql')).to_not be_empty
+    expect(subject.const_get('EXISTS_SQL')).to_not be_empty
   end
 end

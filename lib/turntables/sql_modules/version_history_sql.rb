@@ -6,27 +6,27 @@ module Turntables
   # separate concerns.
   module VersionHistorySql
     # Table name of this guy
-    TableName  = 'version_histories'
+    TABLE_NAME = 'version_histories'
 
     # Table schema for the version history table.
-    Create     = "CREATE TABLE #{TableName} ("\
+    CREATE = "CREATE TABLE #{TABLE_NAME} ("\
       'id      INTEGER PRIMARY KEY AUTOINCREMENT, '\
       'version BIGINT, '\
       'date    BIGINT, '\
       'comment TEXT)'
 
     # Select last inserted transaction
-    SelectLast = "SELECT * FROM #{TableName} "\
-      " WHERE id=(SELECT MAX(id) FROM #{TableName});"
+    SELECT_LAST = "SELECT * FROM #{TABLE_NAME} "\
+      " WHERE id=(SELECT MAX(id) FROM #{TABLE_NAME});"
 
     # Select a record by id
-    SelectById = "SELECT * FROM #{TableName} WHERE id=?"
+    SELECT_BY_ID = "SELECT * FROM #{TABLE_NAME} WHERE id=?"
 
     # Select all the records
-    SelectAll  = "SELECT * FROM #{TableName}"
+    SELECT_ALL = "SELECT * FROM #{TABLE_NAME}"
 
     # Sql to insert a version history into the table
-    Insert     = "INSERT INTO #{TableName} (version,date,comment)"\
-                 ' values (?,?,?)'
+    INSERT = "INSERT INTO #{TABLE_NAME} (version,date,comment)"\
+             ' values (?,?,?)'
   end
 end

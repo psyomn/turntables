@@ -7,8 +7,9 @@ module Turntables
   class Transaction
     # Initialize this object with the contents of the sql file
     # @param sql_file_contents are the contents of the given sql file
-    # @param filename is the filename of the given sql file. We use the filenames
-    #   for the version that it is supposed to upgrade to.
+    # @param filename is the filename of the given sql file. We use
+    #   the filenames for the version that it is supposed to upgrade
+    #   to.
     def initialize(sql_file_contents, filename)
       # Select only the lines that begin with '--$'
       @comment = sql_file_contents.lines.select { |el| el.match(/--\$/) }.join

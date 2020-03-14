@@ -6,13 +6,13 @@ require 'turntables/db_registry'
 # This test to see if simple operations work with the application (so that the
 # minimal guarantee of the gem is respected - to at least create the schema
 # specified).
-describe Turntable do
+describe Turntables::Turntable do
   def delete_db
     File.delete('default.db') if File.exist? 'default.db'
   end
 
   before(:each) do
-    @turntable = Turntable.new
+    @turntable = Turntables::Turntable.new
     @relpath   = __dir__
     @datapath  = "#{@relpath}/data"
 
@@ -24,9 +24,9 @@ describe Turntable do
   end
 
   after(:each) do
-    DbRegistry.instance.close!
+    Turntables::DbRegistry.instance.close!
     delete_db
-    DbRegistry.instance.open!
+    Turntables::DbRegistry.instance.open!
   end
 
   after(:all) do
@@ -50,12 +50,12 @@ describe Turntable do
 
   it 'should raise an error on a malformed dir' do
     @turntable.register("#{@datapath}/malformed-dir")
-    expect { @turntable.make! }.to raise_error(TurntableException)
+    expect { @turntable.make! }.to raise_error(Turntables::TurntableException)
   end
 
   it 'should raise an error on non existant path' do
     @turntable.register('WARGABLLGABHLGABL')
-    expect { @turntable.make! }.to raise_error(TurntableException)
+    expect { @turntable.make! }.to raise_error(Turntables::TurntableException)
   end
 
   it 'should create the database at a *specified* location' do

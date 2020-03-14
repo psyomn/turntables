@@ -30,7 +30,7 @@ module Turntables
     # Check if the required database exists. Check to see if the database has
     # the version_histories table as well.
     def self.check
-      if DbRegistry.instance.table_exists? TableName
+      if DbRegistry.instance.table_exists? TABLE_NAME
         VersionHistory.find_last
       else # db does not exist
         :fresh
@@ -40,7 +40,7 @@ module Turntables
     # Get all the stored version histories
     def self.find_all
       vhs = []
-      DbRegistry.instance.execute(SelectAll).each do |row|
+      DbRegistry.instance.execute(SELECT_ALL).each do |row|
         vhs.push VersionHistory.to_version_history(row)
       end
       vhs
@@ -49,32 +49,34 @@ module Turntables
     # Find the last version history added by checking the max id
     # @return VersionHistory object or nil
     def self.find_last
-      ret = DbRegistry.instance.execute(SelectLast)
+      ret = DbRegistry.instance.execute(SELECT_LAST)
       VersionHistory.to_version_history(ret.first)
     end
 
     # Find a version history record by id
     # @return VersionHistory object or nil
     def self.find(id)
-      ret = DbRegistry.instance.execute(SelectById, id)
+      ret = DbRegistry.instance.execute(SELECT_BY_ID, id)
       VersionHistory.to_version_history(ret.first)
     end
 
     # Insert a row into the table for version histories
     # @return insert result
     def self.insert(vhistory)
-      DbRegistry.instance.execute(Insert, vhistory.version,
+      DbRegistry.instance.execute(INSERT, vhistory.version,
                                   vhistory.date, vhistory.comment)
     end
 
     # Create the table of this model
     # @return nil
     def self.pull_up!
-      DbRegistry.instance.execute(Create)
+      DbRegistry.instance.execute(CREATE)
     end
 
-    # Make an array representing the persisted object, into an object in memory
-    # @param record an array containing the elements to construct a version history
+    # Make an array representing the persisted object, into an object
+    # in memory
+    # @param record an array containing the elements to construct a
+    #   version history
     # @return a VersionHistory object constructed from the records
     def self.to_version_history(record)
       vh = VersionHistory.new(record[1], record[2], record[3])

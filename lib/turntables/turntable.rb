@@ -31,11 +31,11 @@ module Turntables
     # Create the tables by going through each revision
     def make!
       if @repository.malformed?
-        raise TurntableException,
-              "The directory structure at #{@repository.relative_dir} is malformed."
-      else
-        @repository.make!
+        msg = "malformed directory structure at #{@repository.relative_dir}"
+        raise TurntableException, msg
       end
+
+      @repository.make!
     end
 
     attr_accessor :repository
