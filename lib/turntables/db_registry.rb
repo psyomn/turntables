@@ -40,7 +40,7 @@ module Turntables
     # tables in sequence.
     # @param sql is the sql that contains multiple statements
     def execute_batch(sql)
-      execute_batch(sql)
+      handle.execute_batch(sql)
     rescue StandardError => e
       print_exception e
     end
@@ -57,7 +57,7 @@ module Turntables
     # @warn This is mainly here for the rspec testing, and should not be used
     #   unless you really know what you're doing.
     def close!
-      @db_handle.close unless handle.closed?
+      handle.close unless handle.closed?
     end
 
     # Open the database, with the name given previously
@@ -76,7 +76,7 @@ module Turntables
     attr :db_handle
 
     def handle
-      @db_handle = SQLite3::Database.new(@name) if @handle.nil?
+      @db_handle = SQLite3::Database.new(@name) if @db_handle.nil?
       @db_handle
     end
 

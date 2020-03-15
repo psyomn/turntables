@@ -4,11 +4,11 @@ require 'turntables/repository'
 
 describe Turntables::Repository do
   before :each do
-    @repo = Repository.new
+    @repo = Turntables::Repository.new
   end
 
   it '#new should return Repository Object' do
-    expect(@repo).to be_instance_of Repository
+    expect(@repo).to be_instance_of Turntables::Repository
   end
 
   it 'Should have a method called register' do

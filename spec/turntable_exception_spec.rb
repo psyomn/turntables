@@ -4,7 +4,7 @@ require 'turntables/turntable_exception'
 
 describe Turntables::TurntableException do
   before(:each) do
-    @te = TurntableException.new
+    @te = Turntables::TurntableException.new
   end
 
   it 'Should be an instance of runtime error' do
@@ -12,6 +12,6 @@ describe Turntables::TurntableException do
   end
 
   it 'should be an instance of TurntableException' do
-    expect(@te).to be_an_instance_of(TurntableException)
+    expect(@te).to be_an_instance_of(Turntables::TurntableException)
   end
 end
