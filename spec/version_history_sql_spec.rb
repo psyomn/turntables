@@ -1,31 +1,29 @@
+# frozen_string_literal: true
+
 require 'turntables/sql_modules/version_history_sql'
 
-include Turntables
-
-describe VersionHistorySql do
-
-  it "should have a table name constant" do
-    subject.const_get('TableName').should_not be_empty
+describe Turntables::VersionHistorySql do
+  it 'should have a table name constant' do
+    expect(subject.const_get('TABLE_NAME')).to_not be_empty
   end
 
-  it "should have a create sql constant" do
-    subject.const_get('Create').should_not be_empty
+  it 'should have a create sql constant' do
+    expect(subject.const_get('CREATE')).to_not be_empty
   end
 
-  it "should have a select last sql constant" do
-    subject.const_get('SelectLast').should_not be_empty
-  end 
-
-  it "should have a select by id sql constant" do
-    subject.const_get('SelectById').should_not be_empty
+  it 'should have a select last sql constant' do
+    expect(subject.const_get('SELECT_LAST')).to_not be_empty
   end
 
-  it "should have a select all sql constant" do
-    subject.const_get('SelectAll').should_not be_empty
+  it 'should have a select by id sql constant' do
+    expect(subject.const_get('SELECT_BY_ID')).to_not be_empty
   end
 
-  it "should have an insert sql constant" do
-    subject.const_get('Insert').should_not be_empty
+  it 'should have a select all sql constant' do
+    expect(subject.const_get('SELECT_ALL')).to_not be_empty
+  end
+
+  it 'should have an insert sql constant' do
+    expect(subject.const_get('INSERT')).to_not be_empty
   end
 end
-

@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
-require 'turntables'
-include Turntables
+# frozen_string_literal: true
 
-if ARGV.count > 0
-  turntable = Turntable.new
+if ARGV.count.positive?
+  require 'turntables'
+
+  turntable = Turntables::Turntable.new
   turntable.register(ARGV[0])
   turntable.make!
 else
-  puts "Usage: "
-  puts "  turtables <repo-dir>"
+  puts 'Usage: '
+  puts '  turtables <repo-dir>'
 end

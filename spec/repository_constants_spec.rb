@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 require 'turntables/constants/repository_constants'
 
-include Turntables
-
-describe RepositoryConstants do
-  it "Should have SeqDir constant" do
-    subject.const_get('SeqDir').should_not be_empty
+describe Turntables::RepositoryConstants do
+  it 'Should have SeqDir constant' do
+    expect(subject.const_get('SEQ_DIR')).to_not be_empty
   end
 
-  it "Should have MonoDir constant" do
-    subject.const_get('MonoDir').should_not be_empty
+  it 'Should have MonoDir constant' do
+    expect(subject.const_get('MONO_DIR')).to_not be_empty
   end
 end

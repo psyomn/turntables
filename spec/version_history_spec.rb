@@ -1,55 +1,57 @@
+# frozen_string_literal: true
+
 require 'turntables/version_history'
 
-describe VersionHistory do 
-  context "<<AR>> pattern specification" do
-    it "should respond to class method check" do
-      VersionHistory.should respond_to(:check)
+describe Turntables::VersionHistory do
+  context '<<AR>> pattern specification' do
+    it 'should respond to class method check' do
+      expect(Turntables::VersionHistory).to respond_to(:check)
     end
 
-    it "should respond to class method find_all" do
-      VersionHistory.should respond_to(:find_all)
+    it 'should respond to class method find_all' do
+      expect(Turntables::VersionHistory).to respond_to(:find_all)
     end
 
-    it "should respond to class method find_last" do
-      VersionHistory.should respond_to(:find_last)
+    it 'should respond to class method find_last' do
+      expect(Turntables::VersionHistory).to respond_to(:find_last)
     end
 
-    it "should respond to class method find" do
-      VersionHistory.should respond_to(:find)
+    it 'should respond to class method find' do
+      expect(Turntables::VersionHistory).to respond_to(:find)
     end
 
-    it "should respond to class method insert" do
-      VersionHistory.should respond_to(:insert)
+    it 'should respond to class method insert' do
+      expect(Turntables::VersionHistory).to respond_to(:insert)
     end
 
-    it "should respond to class method pull_up!" do
-      VersionHistory.should respond_to(:pull_up!)
+    it 'should respond to class method pull_up!' do
+      expect(Turntables::VersionHistory).to respond_to(:pull_up!)
     end
-    
-    it "should respond to class method to_version_history" do
-      VersionHistory.should respond_to(:to_version_history)
+
+    it 'should respond to class method to_version_history' do
+      expect(Turntables::VersionHistory).to respond_to(:to_version_history)
     end
   end
 
-  context "Attributes" do
+  context 'Attributes' do
     before(:each) do
-      @version_history = VersionHistory.new(1,"asdf")
+      @version_history = Turntables::VersionHistory.new(1, 'asdf')
     end
 
-    it "should have an id" do 
-      @version_history.should respond_to(:id)
+    it 'should have an id' do
+      expect(@version_history).to respond_to(:id)
     end
 
-    it "should have a version" do
-      @version_history.should respond_to(:version)
+    it 'should have a version' do
+      expect(@version_history).to respond_to(:version)
     end
 
-    it "should have a date" do 
-      @version_history.should respond_to(:date)
+    it 'should have a date' do
+      expect(@version_history).to respond_to(:date)
     end
 
-    it "should have a comment" do
-      @version_history.should respond_to(:comment)
+    it 'should have a comment' do
+      expect(@version_history).to respond_to(:comment)
     end
   end
 end

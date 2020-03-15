@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Turntables
-module RepositoryConstants
-  SeqDir  = "seq/"
-  MonoDir = "mono/"
-end
+  module RepositoryConstants
+    SEQ_DIR = 'seq/'
+    MONO_DIR = 'mono/'
+  end
 end
